@@ -1,28 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace GitHub_testi
+namespace TiedonTallennus
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    class Program
     {
-        public MainWindow()
+        static void Main(string[] args)
         {
-            InitializeComponent();
+            string tiedosto = @"C:\Temp\Lämpötila.txt";
+
+            // luetaan tiedostosta aiemmin asetettu lämpötila
+            if (File.Exists(tiedosto))
+            {
+                string aiempiArvo = File.ReadAllText(tiedosto);
+                Console.WriteLine("Aiemmin asetettu lämpötila on " + aiempiArvo + " astetta.");
+            }
+            else
+            {
+                Console.WriteLine("Tervetuloa!");
+            }
+
+            int lämpötila = 0;
+            Console.Write("Anna uusi lämpötila: ");
+            string syöte = Console.ReadLine();
+            lämpötila = int.Parse(syöte);
+
+            // tiedostoon kirjoittaminen
+            File.WriteAllText(tiedosto, lämpötila.ToString());
+            Console.WriteLine("Uusi lämpötila tallennettu.");
+
+            Console.ReadLine();
         }
     }
 }
